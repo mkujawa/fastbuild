@@ -480,8 +480,8 @@ void TestCopy::CopyDirDeleteSrc() const
 
         // Set up the source
         TEST_ASSERT( FileIO::EnsurePathExists( AStackString<>( "../tmp/Test/Copy/CopyDirDeleteSrc/Src/" ) ) );
-        TEST_ASSERT( FileIO::FileCopy( "Tools/FBuild/FBuildTest/Data/TestCopy/a.txt", srcA.Get() ) );
-        TEST_ASSERT( FileIO::FileCopy( "Tools/FBuild/FBuildTest/Data/TestCopy/b.txt", srcB.Get() ) );
+        TEST_ASSERT( FileIO::FileCopy( "Tools/FBuild/FBuildTest/Data/TestCopy/a.txt", srcA.Get(), FileIO::FOLLOW_SRC_AND_DST ) );
+        TEST_ASSERT( FileIO::FileCopy( "Tools/FBuild/FBuildTest/Data/TestCopy/b.txt", srcB.Get(), FileIO::FOLLOW_SRC_AND_DST ) );
         TEST_ASSERT( FileIO::SetReadOnly( srcA.Get(), false ) ); // Clear read only so it's not persisted by copy
         TEST_ASSERT( FileIO::SetReadOnly( srcB.Get(), false ) ); // Clear read only so it's not persisted by copy
 
@@ -651,7 +651,7 @@ void TestCopy::ObjectListChaining2() const
     const char * configFileCopy = "../tmp/Test/Copy/ObjectListChaining2/fbuild.bff";
 
     FileIO::EnsurePathExistsForFile( AStackString<>( configFileCopy ) );
-    VERIFY( FileIO::FileCopy( configFileOriginal, configFileCopy ) );
+    VERIFY( FileIO::FileCopy( configFileOriginal, configFileCopy, FileIO::FOLLOW_SRC_AND_DST ) );
     VERIFY( FileIO::SetReadOnly( configFileCopy, false ) );
 
     FBuildTestOptions options;
